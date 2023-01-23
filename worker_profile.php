@@ -105,7 +105,11 @@ if (isset($_POST['submit'])) {
         }
 
 }
+$sql22 = "SELECT * FROM w_messages WHERE worker_id='$worker_id'";
+$result22 = mysqli_query($conn, $sql22);
+$row22=mysqli_fetch_assoc($result22);
 
+$user_read = $row22['worker_read'];
 
 ?>
 
@@ -148,10 +152,28 @@ if (isset($_POST['submit'])) {
                             <img src="assets/img/logo.png" class="logo" alt="" style="margin: 20px 40px;" />
                         </a>
                         <ul data-submenu-title="Main Navigation">
-                            <li><a href="worker_home.php"><i
+                            <li ><a href="worker_home.php"><i
                                         class="lni lni-dashboard mr-2"></i>Dashboard</a></li>
-                            <li><a href="worker_appointment.php"><i class="lni lni-briefcase mr-2"></i>Assigneed Jobs</a></li>
+                            <li><a href="worker_appointment.php"><i class="lni lni-briefcase mr-2"></i>Assigneed
+                                    Jobs</a></li>
                             <li><a href="worker_hiring.php"><i class="lni lni-bookmark mr-2"></i>Job History</a></li>
+                            <?php
+                            if($user_read==0){
+                                $sql = "SELECT * from w_messages where worker_id = $worker_id and `worker_read` = 0";
+                                $result = mysqli_query($conn, $sql);
+                                $row_cnt = $result->num_rows;
+                            ?>
+                            <li><a href="worker_chat.php"><i class="lni lni-envelope mr-2"></i>Messages<span
+                                        class="count-tag"><?php echo $row_cnt?></span></a>
+                            </li>
+                            <?php
+                            }else{
+                            ?>
+                            <li><a href="worker_chat.php"><i class="lni lni-envelope mr-2"></i>Messages</a>
+                            </li>
+                            <?php
+                            }
+                            ?>
                         </ul>
                         <ul data-submenu-title="My Accounts">
                             <li class="active"><a href="worker_profile.php"><i class="lni lni-user mr-2"></i>My Profile </a>

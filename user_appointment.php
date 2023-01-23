@@ -143,7 +143,7 @@
                                         </thead>
                                         <tbody>
                                             <?php 
-                                                $sql = "SELECT * FROM appointments where user_id = '$user_id'";
+                                                $sql = "SELECT * FROM appointments where user_id = '$user_id' and `status` <> 3";
                                                 $result = mysqli_query($conn, $sql);
                                                 if($result){
                                                     while($row=mysqli_fetch_assoc($result)){

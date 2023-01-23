@@ -191,7 +191,7 @@
                                                     if(empty($link)){
                                                 ?>
                                                     <a href="user_agency_hire.php?user_id=<?php echo $user_id?>&agency_id=<?php echo $agency_id?>" class="btn btn-success" style="margin-right:10px">Hire Service</a>
-                                                    <a href="" class="btn btn-warning">Set Meeting Link</a>
+                                                    <a href="user_set_link.php?room_id=<?php echo $room_id?>" class="btn btn-warning">Set Meeting Link</a>
                                                 <?php
                                                     }else{
                                                 ?>
@@ -209,7 +209,7 @@
                                             <div class="dash-msg-content" style=" position: relative;">
                                                 <?php
                                             #getting message data from the database
-                                            $sql = "SELECT * from messages WHERE user_id=$user_id AND agency_id =$agency_id";
+                                            $sql = "SELECT * from messages WHERE user_id=$user_id AND agency_id =$agency_id order by message_id desc";
                                             $result = mysqli_query($conn, $sql);
                                             if($result){
                                                 while($row=mysqli_fetch_assoc($result)){

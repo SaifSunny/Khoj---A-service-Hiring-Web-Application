@@ -26,6 +26,25 @@
     $row22=mysqli_fetch_assoc($result22);
 
     $user_read = $row22['agency_read'];
+
+    if(isset($_POST['submit'])){
+
+        $link = $_POST['link'];
+            // Insert record
+    
+            $query2 = "UPDATE w_chat_room SET link = '$link' WHERE room_id = '$room_id'";
+            $query_run2 = mysqli_query($conn, $query2);
+                
+            if ($query_run2) {
+                header("Location: agency_wmessages.php?room_id='$room_id'");
+            } 
+            else {
+                $cls="danger";
+                $error = mysqli_error($conn);
+            }
+       
+    }
+
 ?>
 
 <!DOCTYPE html>
@@ -130,85 +149,39 @@
                                 <div class="_dashboard_content_body">
                                     <!-- Convershion -->
                                     <div class="messages-container margin-top-0">
-                                        <div class="messages-headline">
-                                            <h4>My Conversations</h4>
-                                        </div>
 
                                         <div class="row">
+                                            <form action="" method="POST" enctype='multipart/form-data'
+                                                style="margin: 0 40px;">
 
-                                            <!-- Messages -->
-                                            <div class="dash-msg-inbox col-md-">
-                                                <ul>
-                                                    <?php 
-														$sql = "SELECT * FROM chat_room where agency_id = $agency_id";
-														$result = mysqli_query($conn, $sql);
-														if($result){
-															while($row=mysqli_fetch_assoc($result)){
-
-															$room_id=$row['room_id'];
-															$user_id=$row['user_id'];
-															$create_date=$row['create_date'];
-															$link=$row['link'];
-
-                                                            $sql2 = "SELECT * FROM users where user_id = $user_id";
-                                                            $result2 = mysqli_query($conn, $sql2);
-                                                            $row2=mysqli_fetch_assoc($result2); 
-
-															$user_name=$row2['firstname']." ".$row2['lastname'];
-															$user_img=$row2['user_img'];
-															$status=$row2['status'];
-                                                            
-                                                            $sql8 = "SELECT * from messages WHERE user_id=$user_id AND agency_id =$agency_id order by message_id desc";
-                                                            $result8 = mysqli_query($conn, $sql8);
-                                                            $row8=mysqli_fetch_assoc($result8);
-                                                            $message = $row8['message'];
-                                                            $sender = $row8['sender'];
-													?>
-                                                    <li>
-                                                        <a
-                                                            href="agency_read_message.php?room_id=<?php echo $room_id?>&agency_id=<?php echo $agency_id?>">
-                                                            <div class="dash-msg-avatar"><img
-                                                                    src="assets/img/users/<?php echo $user_img?>"
-                                                                    alt="">
-                                                                <?php
-                                                                    if($status == 1){
-                                                                ?>
-                                                                <span class="_user_status online"></span>
-                                                                <?php
-                                                                    }else{
-                                                                ?>
-                                                                <span class="_user_status offline"></span>
-                                                                <?php
-                                                                    }
-                                                                ?>
+                                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                                                    <div class="alert alert-<?php echo $cls;?>" style="margin:10px 0">
+                                                        <?php 
+                                                        if (isset($_POST['submit'])){
+                                                            echo $error;
+                                                        }
+                                                    ?>
+                                                    </div>
+                                                    <div class="row" style="color:black">
+                                                        <div class="col-md-12">
+                                                            <div class="form-group" style="padding:10px">
+                                                                <label>Google Meet Link</label>
+                                                                <input type="text" class="form-control" name="link"
+                                                                    id="link" placeholder="Google Meet Link" required>
                                                             </div>
+                                                        </div>
 
-                                                            <div class="message-by">
-                                                                <div class="message-by-headline">
-                                                                    <h3><?php echo $user_name?></h3>
-                                                                    <span>Chat Created: <?php echo $create_date?></span>
-                                                                </div>
-                                                                <?php
-                                                                    if($sender==1){
-                                                                ?>
-                                                                <p>You : <?php echo $message?></p>
-                                                                <?php
-                                                                    }else{
-                                                                ?>
-                                                                <p><?php echo $user_name." : ".$message?></p>
-                                                                <?php
-                                                                    }
-                                                                ?>
+                                                        <div class="col-xl-12 col-lg-12">
+                                                            <div class="form-group">
+                                                                <button type="submit" name="submit"
+                                                                    class="btn btn-md ft-medium text-light rounded theme-bg">Set
+                                                                    Meeting Link</button>
                                                             </div>
-                                                        </a>
-                                                    </li>
-                                                    <?php 
-																}
-															}
-														?>
-                                                </ul>
-                                            </div>
-                                            <!-- Messages / End -->
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </form>
 
                                         </div>
 

@@ -27,6 +27,8 @@
     $row22=mysqli_fetch_assoc($result22);
 
     $user_read = $row22['user_read'];
+
+
 ?>
 
 <!DOCTYPE html>
@@ -155,6 +157,15 @@
                                                     $row1=mysqli_fetch_assoc($result1);
 													$category_name=$row1['category_name'];
 
+                                                    $sql3 = "SELECT * FROM ratings WHERE agency_id = '$id'";
+                                                    $result3 = mysqli_query($conn, $sql3);
+                                                    $count = $result3->num_rows;
+                                                                            
+                                                    $query2 = "SELECT AVG(rating) AS average FROM ratings WHERE agency_id = '$id'";
+                                                    $result2 = mysqli_query($conn, $query2);
+                                                    $row2 = mysqli_fetch_assoc($result2);
+                                                    $avg = $row2['average'];
+
 											?>
                                     <!-- Single job -->
                                     <div class="job_grid d-block border rounded px-3 pt-3 pb-2" style="height:10rem">
@@ -196,7 +207,8 @@
                                                             <i class="fas fa-star filled"></i>
                                                         </div>
                                                         <div style="margin-top:10px">
-                                                            <p> 4.5 (200)</p>
+
+                                                            <p> <?php echo number_format((float)$avg, 2, '.', '')?> (<?php echo $count?>)</p>
                                                         </div>
                                                         
                                                     </div>

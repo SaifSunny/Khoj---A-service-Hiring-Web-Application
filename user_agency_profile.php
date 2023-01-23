@@ -21,12 +21,12 @@
     $user_img = $row['user_img'];
     $zip = $row['zip'];
 
+    $agency_id=$_GET['agency_id'];
 
-    $sql = "SELECT * FROM agency";
+    $sql = "SELECT * FROM agency where agency_id=$agency_id ";
     $result = mysqli_query($conn, $sql);
     $row=mysqli_fetch_assoc($result);
 
-        $agency_id=$row['agency_id'];
         $category_id=$row['category_id'];
 
         $agency_name=$row['agency_name'];
@@ -45,7 +45,14 @@
         $row1=mysqli_fetch_assoc($result1);
         $category_name=$row1['category_name'];
 
-
+        $sql3 = "SELECT * FROM ratings WHERE agency_id = '$agency_id'";
+        $result3 = mysqli_query($conn, $sql3);
+        $count = $result3->num_rows;
+                                
+        $query2 = "SELECT AVG(rating) AS average FROM ratings WHERE agency_id = '$agency_id'";
+        $result2 = mysqli_query($conn, $query2);
+        $row2 = mysqli_fetch_assoc($result2);
+        $avg = $row2['average'];
         
 if(isset($_POST['submit'])){
 
@@ -72,7 +79,7 @@ if(isset($_POST['submit'])){
                     
             if ($query_run2) {
               $cls="success";
-              $error = "Appointment Successfully Placed.";
+              $error = "Appointment Successfully Placed."; 
             } 
             else {
               $cls="danger";
@@ -211,7 +218,8 @@ if(isset($_POST['submit'])){
                                                 <i class="fas fa-star"></i>
                                             </div>
                                             <div style="margin-top:10px">
-                                                <p> 4 (200)</p>
+                                                <p> <?php echo number_format((float)$avg, 2, '.', '')?>
+                                                    (<?php echo $count?>)</p>
                                             </div>
                                         </div>
                                         <span class="text-muted smalls">Location: <?php echo $city?></span> <br>
@@ -260,10 +268,12 @@ if(isset($_POST['submit'])){
                                 </div>
 
                                 <div class="cdt_caps py-3 px-5">
-                                    <a href="user_agency_hire.php?user_id=<?php echo $user_id?>&agency_id=<?php echo $agency_id?>" class="btn btn-md theme-bg text-light rounded full-width">Hire Now</a>
+                                    <a href="user_agency_hire.php?user_id=<?php echo $user_id?>&agency_id=<?php echo $agency_id?>"
+                                        class="btn btn-md theme-bg text-light rounded full-width">Hire Now</a>
                                 </div>
                                 <div class="cdt_caps px-5" style=" padding-bottom:40px">
-                                    <a href="user_create_chat.php?agency_id=<?php echo $agency_id?>&user_id=<?php echo $user_id?>" class="btn btn-md bg-warning text-light rounded full-width">Send
+                                    <a href="user_create_chat.php?agency_id=<?php echo $agency_id?>&user_id=<?php echo $user_id?>"
+                                        class="btn btn-md bg-warning text-light rounded full-width">Send
                                         Message</a>
                                 </div>
                             </div>
@@ -278,13 +288,25 @@ if(isset($_POST['submit'])){
                                 <div class="abt-cdt d-block full-width mb-4">
                                     <h4 class="ft-medium mb-1 fs-md" style="padding-bottom:20px;">About The Agency</h4>
                                     <p><?php echo $about?></p>
-                                    <h4 class="ft-medium mb-1 fs-md" style="padding-bottom:20px;">Jobs Completed:</h4>
+                                    <?php
+                                            $sql3 = "SELECT * FROM appointments WHERE agency_id = '$agency_id' and status =3";
+                                            $result3 = mysqli_query($conn, $sql3);
+                                            $count3 = $result3->num_rows;
+                                    ?>
+                                    <h4 class="ft-medium mb-1 fs-md" style="padding-bottom:20px;">Jobs Completed:
+                                        <?php echo $count3?></h4>
                                 </div>
                                 <div class="abt-cdt d-block full-width mb-4">
-                                    <h4 class="ft-medium mb-1 fs-md" style="padding-bottom:20px;">Total Reviews:</h4>
+                                    <h4 class="ft-medium mb-1 fs-md" style="padding-bottom:20px;">Total Reviews:
+                                        <?php echo $count?></h4>
                                     <div class=" d-flex justify-content-left">
                                         <div class="star-rating align-items-left d-flex"
                                             style="padding-top:7px;margin:0;">
+                                            <?php
+                                                $sql3 = "SELECT * FROM ratings WHERE agency_id = '$agency_id' and rating =5";
+                                                $result3 = mysqli_query($conn, $sql3);
+                                                $count10 = $result3->num_rows;
+                                            ?>
                                             <i class="fas fa-star filled"></i>
                                             <i class="fas fa-star filled"></i>
                                             <i class="fas fa-star filled"></i>
@@ -294,11 +316,16 @@ if(isset($_POST['submit'])){
                                             &nbsp;
                                             &nbsp;
                                         </div>
-                                        <p>5 Reviews</p>
+                                        <p><?php echo $count10?> Reviews</p>
                                     </div>
                                     <div class=" d-flex justify-content-left">
                                         <div class="star-rating align-items-left d-flex"
                                             style="padding-top:7px;margin:0;">
+                                            <?php
+                                                $sql3 = "SELECT * FROM ratings WHERE agency_id = '$agency_id' and rating =4";
+                                                $result3 = mysqli_query($conn, $sql3);
+                                                $count9 = $result3->num_rows;
+                                            ?>
                                             <i class="fas fa-star filled"></i>
                                             <i class="fas fa-star filled"></i>
                                             <i class="fas fa-star filled"></i>
@@ -307,11 +334,16 @@ if(isset($_POST['submit'])){
                                             &nbsp;
                                             &nbsp;&nbsp;&nbsp;
                                         </div>
-                                        <p>5 Reviews</p>
+                                        <p><?php echo $count9?> Reviews</p>
                                     </div>
                                     <div class=" d-flex justify-content-left">
                                         <div class="star-rating align-items-left d-flex"
                                             style="padding-top:7px;margin:0;">
+                                            <?php
+                                                $sql3 = "SELECT * FROM ratings WHERE agency_id = '$agency_id' and rating =3";
+                                                $result3 = mysqli_query($conn, $sql3);
+                                                $count8 = $result3->num_rows;
+                                            ?>
                                             <i class="fas fa-star filled"></i>
                                             <i class="fas fa-star filled"></i>
                                             <i class="fas fa-star filled"></i>
@@ -321,11 +353,16 @@ if(isset($_POST['submit'])){
                                             &nbsp;
                                             &nbsp;
                                         </div>
-                                        <p>5 Reviews</p>
+                                        <p><?php echo $count8?> Reviews</p>
                                     </div>
                                     <div class=" d-flex justify-content-left">
                                         <div class="star-rating align-items-left d-flex"
                                             style="padding-top:7px;margin:0;">
+                                            <?php
+                                                $sql3 = "SELECT * FROM ratings WHERE agency_id = '$agency_id' and rating =2";
+                                                $result3 = mysqli_query($conn, $sql3);
+                                                $count7 = $result3->num_rows;
+                                            ?>
                                             <i class="fas fa-star filled"></i>
                                             <i class="fas fa-star filled"></i>
                                             &nbsp;
@@ -335,12 +372,17 @@ if(isset($_POST['submit'])){
                                             &nbsp;
                                             &nbsp;
                                         </div>
-                                        <p>5 Reviews</p>
+                                        <p><?php echo $count7?> Reviews</p>
                                     </div>
                                     <div class=" d-flex justify-content-left">
                                         <div class="star-rating align-items-left d-flex"
                                             style="padding-top:7px;margin:0;">
                                             <i class="fas fa-star filled"></i>
+                                            <?php
+                                                $sql3 = "SELECT * FROM ratings WHERE agency_id = '$agency_id' and rating =1";
+                                                $result3 = mysqli_query($conn, $sql3);
+                                                $count6 = $result3->num_rows;
+                                            ?>
                                             &nbsp;
                                             &nbsp;
                                             &nbsp;
@@ -349,45 +391,71 @@ if(isset($_POST['submit'])){
                                             &nbsp;
                                             &nbsp;
                                         </div>
-                                        <p>5 Reviews</p>
+                                        <p><?php echo $count6?> Reviews</p>
                                     </div>
                                 </div>
 
                                 <!-- Comments -->
                                 <div class="abt-cdt d-block full-width mb-4">
                                     <h4 class="ft-medium mb-1 fs-md" style="padding-bottom:20px;">Customer Reviews</h4>
+                                    <?php 
+												$sql = "SELECT * FROM ratings where agency_id=$agency_id";
+												$result = mysqli_query($conn, $sql);
+												if($result){
+													while($row=mysqli_fetch_assoc($result)){
+													$id=$row['rating_id'];
+													$user_id=$row['user_id'];
+													$rating=$row['rating'];
+													$comment=$row['comment'];
+
+                                                    $sql1 = "SELECT * FROM users where user_id=$user_id";
+                                                    $result1 = mysqli_query($conn, $sql1);
+                                                    $row1=mysqli_fetch_assoc($result1);
+													$user_name=$row1['firstname']." ".$row1['lastname'];
+													$user_img=$row1['user_img'];
+
+                                    ?>
                                     <div class="jb-list01-flex d-flex align-items-start justify-content-start">
                                         <div class="jb-list01-thumb">
-                                            <img src="assets/img/agency/<?php echo $agency_img?>" class="img-fluid"
+                                            <img src="assets/img/users/<?php echo $user_img?>" class="img-fluid"
                                                 width="60" alt="" />
                                         </div>
 
                                         <div class="jb-list01 pl-3">
-
                                             <div class="jb-list-01-title">
-
-                                                <h5 class="ft-medium mb-1"><?php echo $agency_name?></h5>
+                                                <h5 class="ft-medium mb-1"><?php echo $user_name?></h5>
                                                 <div class=" d-flex" style="margin: 5px 0;">
-                                                    <div class="star-rating align-items-center d-flex"
-                                                        style="padding:0;margin:0;">
+                                                    <div class="star-rating align-items-center d-flex" >
+                                                        <?php
+                                                            for($i=0; $i<5; $i++){
+                                                                if($i<$rating){
+                                                        ?>
                                                         <i class="fas fa-star filled"></i>
-                                                        <i class="fas fa-star filled"></i>
-                                                        <i class="fas fa-star filled"></i>
-                                                        <i class="fas fa-star filled"></i>
-                                                        <i class="fas fa-star"></i>
+                                                        <?php
+                                                                }else{
+                                                        ?>
+                                                        <i class="fa fa-star"></i> <br>
+                                                        <?php
+                                                                }
+                                                            }
+                                                        ?>
                                                     </div>
 
                                                 </div>
                                             </div>
 
                                             <div class="jb-list-01-info d-block mb-3" style="padding-top:5px">
-                                                <span class="text-muted mr-2"><?php echo $city?></span>
+                                                <span class="text-muted mr-2"><?php echo $comment?></span>
                                             </div>
 
 
 
                                         </div>
                                     </div>
+                                    <?php
+                                                    }
+                                                }
+                                            ?>
                                 </div>
 
                             </div>

@@ -200,7 +200,7 @@
                                                 </td>
                                                 <td>
                                                     <div class="dash-action">
-                                                        <a href="admin_user_delete.php?id=<?php echo $id?>"
+                                                        <a href="user_agency_rate.php?id=<?php echo $id?>&agency_id=<?php echo $agency_id?>"
                                                             class="p-2 text-warning bg-light-warning d-inline-flex align-items-center justify-content-center ml-1">Rate </a>
                                                     </div>
                                                 </td>

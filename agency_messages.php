@@ -188,7 +188,7 @@
                                                 <?php
                                                     if(empty($link)){
                                                 ?>
-                                                    <a href="" class="btn btn-success">Set Meeting Link</a>
+                                                    <a href="agency_set_link.php?room_id=<?php echo $room_id?>" class="btn btn-success">Set Meeting Link</a>
                                                 <?php
                                                     }else{
                                                 ?>
@@ -207,7 +207,7 @@
                                             <div class="dash-msg-content" style=" position: relative;">
                                                 <?php
                                             #getting message data from the database
-                                            $sql = "SELECT * from messages WHERE user_id=$user_id AND agency_id =$agency_id";
+                                            $sql = "SELECT * from messages WHERE user_id=$user_id AND agency_id =$agency_id order by message_id desc";
                                             $result = mysqli_query($conn, $sql);
                                             if($result){
                                                 while($row=mysqli_fetch_assoc($result)){
