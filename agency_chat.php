@@ -124,7 +124,7 @@
 
                 <div class="dashboard-widg-bar d-block">
                     <div class="row">
-                        <div class="col-md-12">
+                        <div class="col-md-6">
                             <div class="_dashboard_content bg-white rounded mb-4">
 
                                 <div class="_dashboard_content_body">
@@ -137,7 +137,7 @@
                                         <div class="row">
 
                                             <!-- Messages -->
-                                            <div class="dash-msg-inbox col-md-12">
+                                            <div class="dash-msg-inbox col-md-">
                                                 <ul>
                                                     <?php 
 														$sql = "SELECT * FROM chat_room where agency_id = $agency_id";
@@ -196,6 +196,98 @@
                                                                     }else{
                                                                 ?>
                                                                 <p><?php echo $user_name." : ".$message?></p>
+                                                                <?php
+                                                                    }
+                                                                ?>
+                                                            </div>
+                                                        </a>
+                                                    </li>
+                                                    <?php 
+																}
+															}
+														?>
+                                                </ul>
+                                            </div>
+                                            <!-- Messages / End -->
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="_dashboard_content bg-white rounded mb-4">
+
+                                <div class="_dashboard_content_body">
+                                    <!-- Convershion -->
+                                    <div class="messages-container margin-top-0">
+                                        <div class="messages-headline">
+                                            <h4>Worker Chat</h4>
+                                        </div>
+
+                                        <div class="row">
+
+                                            <!-- Messages -->
+                                            <div class="dash-msg-inbox col-md-">
+                                                <ul>
+                                                    <?php 
+														$sql = "SELECT * FROM w_chat_room where agency_id = $agency_id";
+														$result = mysqli_query($conn, $sql);
+														if($result){
+															while($row=mysqli_fetch_assoc($result)){
+
+															$room_id=$row['room_id'];
+															$worker_id=$row['worker_id'];
+															$create_date=$row['create_date'];
+															$link=$row['link'];
+
+                                                            $sql2 = "SELECT * FROM workers where worker_id = $worker_id";
+                                                            $result2 = mysqli_query($conn, $sql2);
+                                                            $row2=mysqli_fetch_assoc($result2); 
+
+															$worker_name=$row2['firstname']." ".$row2['lastname'];
+															$worker_img=$row2['user_img'];
+															$status=$row2['status'];
+                                                            
+                                                            $sql8 = "SELECT * from messages WHERE worker_id=$worker_id AND agency_id =$agency_id order by message_id desc";
+                                                            $result8 = mysqli_query($conn, $sql8);
+                                                            $row8=mysqli_fetch_assoc($result8);
+                                                            $message = $row8['message'];
+                                                            $sender = $row8['sender'];
+													?>
+                                                    <li>
+                                                        <a
+                                                            href="agency_read_wmessage.php?room_id=<?php echo $room_id?>&agency_id=<?php echo $agency_id?>&worker_id=<?php echo $worker_id?>">
+                                                            <div class="dash-msg-avatar"><img
+                                                                    src="assets/img/workers/<?php echo $worker_img?>"
+                                                                    alt="">
+                                                                <?php
+                                                                    if($status == 1){
+                                                                ?>
+                                                                <span class="_user_status online"></span>
+                                                                <?php
+                                                                    }else{
+                                                                ?>
+                                                                <span class="_user_status offline"></span>
+                                                                <?php
+                                                                    }
+                                                                ?>
+                                                            </div>
+
+                                                            <div class="message-by">
+                                                                <div class="message-by-headline">
+                                                                    <h3><?php echo $worker_name?></h3>
+                                                                    <span>Chat Created: <?php echo $create_date?></span>
+                                                                </div>
+                                                                <?php
+                                                                    if($sender==1){
+                                                                ?>
+                                                                <p>You : <?php echo $message?></p>
+                                                                <?php
+                                                                    }else{
+                                                                ?>
+                                                                <p><?php echo $worker_name." : ".$message?></p>
                                                                 <?php
                                                                     }
                                                                 ?>
