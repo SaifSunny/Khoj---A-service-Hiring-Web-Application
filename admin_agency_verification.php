@@ -3,7 +3,7 @@ include './database/config.php';
 
 $did = $_GET['id'];
 
-  $query = "UPDATE agency SET `status` = '1' WHERE agency_id='$did'";
+  $query = "UPDATE agency SET `verified` = '1' WHERE agency_id='$did'";
   $query_run = mysqli_query($conn, $query);
 
   if ($query_run) {   

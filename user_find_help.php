@@ -136,7 +136,7 @@
                             <div class="row">
                                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
                                     <?php 
-												$sql = "SELECT * FROM agency";
+												$sql = "SELECT * FROM agency where verified=1";
 												$result = mysqli_query($conn, $sql);
 												if($result){
 													while($row=mysqli_fetch_assoc($result)){

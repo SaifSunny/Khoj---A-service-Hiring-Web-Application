@@ -179,7 +179,7 @@
 
                                         <tbody>
                                             <?php 
-                                                $sql = "SELECT * FROM appointments where agency_id = '$agency_id' and statys <> 3";
+                                                $sql = "SELECT * FROM appointments where agency_id = '$agency_id' and status <> 3";
                                                 $result = mysqli_query($conn, $sql);
                                                 if($result){
                                                     while($row=mysqli_fetch_assoc($result)){

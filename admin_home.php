@@ -151,7 +151,7 @@ $admin_id=$row['admin_id'];
                                 <h4 class="mb-0 ft-medium">Recent Login</h4>
                                 <ul>
                                     <?php 
-                                        $sql = "SELECT DISTINCT `name`, `role`, `image` FROM recent ORDER BY sl DESC LIMIT 8;";
+                                        $sql = "SELECT DISTINCT `name`, `role`, `image` FROM recent ORDER BY id DESC LIMIT 8;";
                                         $result = mysqli_query($conn, $sql);
                                         if($result){
                                             while($row=mysqli_fetch_assoc($result)){
@@ -159,9 +159,19 @@ $admin_id=$row['admin_id'];
                                                 $name=$row['name'];
                                                 $image=$row['image'];
                                                 $role=$row['role'];
+
+                                                if($role=="User"){
+                                                    $dir="users";
+                                                }elseif($role=="Agency"){
+                                                    $dir="agency";
+                                                }elseif($role=="Worker"){
+                                                    $dir="workers";
+                                                }else{
+                                                    $dir="admin";
+                                                }
                                     ?>
                                     <li>
-                                        <img src="./images/users/<?php echo $image?>" style="width:40px;border-radius: 50%;"
+                                        <img src="./images/<?php echo $dir."/".$image?>" style="width:40px;border-radius: 50%;"
                                             alt="profile">
                                         <i class="dash-icon-box ti-files text-warning bg-light-warning"></i>
                                         <strong class="ft-medium text-dark"><?php echo $name?></strong>
