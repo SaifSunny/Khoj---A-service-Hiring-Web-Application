@@ -3,6 +3,7 @@ include_once("./database/config.php");
 
 session_start();
 $username = $_SESSION['username'];
+error_reporting(0);
 
 if (!isset($_SESSION['username'])) {
     header("Location: user_login.php");

@@ -2,7 +2,7 @@
     include_once("./database/config.php");
 
     session_start();
-
+error_reporting(0);
     $username = $_SESSION['adminname'];
 
     if (!isset($_SESSION['adminname'])) {

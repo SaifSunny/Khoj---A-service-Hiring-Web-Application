@@ -1,5 +1,6 @@
 <?php
 include './database/config.php';
+error_reporting(0);
 
 $room_id = $_GET['room_id'];
 $agency_id = $_GET['agency_id'];

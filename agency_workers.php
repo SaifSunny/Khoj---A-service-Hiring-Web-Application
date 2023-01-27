@@ -1,5 +1,6 @@
 <?php
     include_once("./database/config.php");
+    error_reporting(0);
 
     session_start();
 
@@ -141,7 +142,7 @@
                                         </thead>
                                         <tbody>
                                             <?php 
-												$sql = "SELECT * FROM workers";
+												$sql = "SELECT * FROM workers where agency_id=$agency_id";
 												$result = mysqli_query($conn, $sql);
 												if($result){
 													while($row=mysqli_fetch_assoc($result)){
