@@ -162,6 +162,13 @@ if (isset($_POST['submit_licence'])) {
     }   
 }
 
+
+$sql22 = "SELECT * FROM messages WHERE agency_id='$agency_id'";
+$result22 = mysqli_query($conn, $sql22);
+$row22=mysqli_fetch_assoc($result22);
+
+$user_read = $row22['agency_read'];
+
 ?>
 
 <!DOCTYPE html>
@@ -207,8 +214,23 @@ if (isset($_POST['submit_licence'])) {
                             <li><a href="agency_appointments.php"><i class="lni lni-files mr-2"></i>Manage
                                     Appointments</a></li>
                             <li><a href="agency_workers.php"><i class="lni lni-users mr-2"></i>Manage Workers</a></li>
+                            <?php
+                            if($user_read==0){
+                                $sql = "SELECT * from messages where agency_id = $agency_id and `agency_read` = 0";
+                                $result = mysqli_query($conn, $sql);
+                                $row_cnt = $result->num_rows;
+                            ?>
                             <li><a href="agency_chat.php"><i class="lni lni-envelope mr-2"></i>Messages<span
-                                        class="count-tag">4</span></a></li>
+                                        class="count-tag"><?php echo $row_cnt?></span></a>
+                            </li>
+                            <?php
+                            }else{
+                            ?>
+                            <li><a href="agency_chat.php"><i class="lni lni-envelope mr-2"></i>Messages</a>
+                            </li>
+                            <?php
+                            }
+                            ?>
                             <li><a href="agency_appointment_history.php"><i
                                         class="lni lni-bookmark mr-2"></i>Appointment History</a></li>
                         </ul>
