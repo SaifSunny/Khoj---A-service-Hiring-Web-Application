@@ -173,13 +173,13 @@ if (isset($_POST['submit'])) {
                     <div class="row">
 
                         <div class="colxl-10 col-lg-10 col-md-8">
-                            <h1 class="ft-medium">Manage Appointments</h1>
+                            <h1 class="ft-medium">Assign Worker</h1>
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item text-muted"><a href="agency_home.php">Home</a></li>
                                     <li class="breadcrumb-item text-muted"><a href="agency_appointments.php"
                                             class="theme-cl">Manage Appointments</a></li>
-                                    <li class="breadcrumb-item"><a href="#" class="theme-cl">Manage Appointments</a>
+                                    <li class="breadcrumb-item"><a href="#" class="theme-cl">Assign Worker</a>
                                     </li>
                                 </ol>
                             </nav>
@@ -233,7 +233,7 @@ if (isset($_POST['submit'])) {
                                                                     id="worker" required>
                                                                     <option value="">-- Select Worker --</option>
                                                                     <?php
-                                                                                $option = "SELECT * FROM workers";
+                                                                                $option = "SELECT * FROM workers where agency_id = $agency_id";
                                                                                 $option_run = mysqli_query($conn, $option);
 
                                                                                 if (mysqli_num_rows($option_run) > 0) {

@@ -112,12 +112,12 @@
                 <div class="dashboard-tlbar d-block mb-5">
                     <div class="row">
                         <div class="colxl-12 col-lg-12 col-md-12">
-                            <h1 class="ft-medium">Chats</h1>
+                            <h1 class="ft-medium">My Appointments</h1>
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item text-muted"><a href="user_home.php"
                                             class="theme-cl">Dashboard</a> </li>
-                                    <li class="breadcrumb-item">Chats</li>
+                                    <li class="breadcrumb-item">My Appointments</li>
                                 </ol>
                             </nav>
                         </div>

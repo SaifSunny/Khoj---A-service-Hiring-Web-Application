@@ -164,14 +164,14 @@ $user_read = $row22['user_read'];
                 <div class="dashboard-tlbar d-block mb-5">
                     <div class="row">
                         <div class="colxl-10 col-lg-10 col-md-8">
-                            <h1 class="ft-medium">Schedule Appointment</h1>
+                            <h1 class="ft-medium">Rate Agency</h1>
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item text-muted"><a href="user_home.php"
                                             class="theme-cl">Dashboard</a> </li>
                                     <li class="breadcrumb-item text-muted"><a href="user_agency_profile.php"
                                             class="theme-cl">Find Agency</a> </li>
-                                    <li class="breadcrumb-item">Schedule Appointment</li>
+                                    <li class="breadcrumb-item">Rate Agency</li>
                                 </ol>
                             </nav>
                         </div>

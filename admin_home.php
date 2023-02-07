@@ -131,8 +131,12 @@ $admin_id=$row['admin_id'];
                         </div>
                         <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6">
                             <div class="dash-widgets py-5 px-4 bg-success rounded">
-
-                                <h2 class="ft-medium mb-1 fs-xl text-light">0</h2>
+                            <?php
+                                    $sql = "SELECT * from appointments where `status` = '3'";
+                                    $result = mysqli_query($conn, $sql);
+                                    $row_cnt = $result->num_rows;
+                                ?>
+                                <h2 class="ft-medium mb-1 fs-xl text-light"><?php echo $row_cnt?></h2>
                                 <p class="p-0 m-0 text-light fs-md">Hirings</p>
                                 <i class="lni lni-heart"></i>
                             </div>
@@ -152,7 +156,7 @@ $admin_id=$row['admin_id'];
                                 <h4 class="mb-0 ft-medium">Recent Login</h4>
                                 <ul>
                                     <?php 
-                                        $sql = "SELECT DISTINCT `name`, `role`, `image` FROM recent ORDER BY id DESC LIMIT 8;";
+                                        $sql = "SELECT DISTINCT `name`, `role`, `image` FROM latest_users ORDER BY id DESC LIMIT 8;";
                                         $result = mysqli_query($conn, $sql);
                                         if($result){
                                             while($row=mysqli_fetch_assoc($result)){
@@ -172,12 +176,12 @@ $admin_id=$row['admin_id'];
                                                 }
                                     ?>
                                     <li>
-                                        <img src="./images/<?php echo $dir."/".$image?>" style="width:40px;border-radius: 50%;"
-                                            alt="profile">
-                                        <i class="dash-icon-box ti-files text-warning bg-light-warning"></i>
+                                        
+                                        <i class="dash-icon-box text-warning bg-light-warning"><img src="assets/img/<?php echo $dir."/".$image?>" style="width:40px;border-radius: 50%;"
+                                            alt="profile"></i>
                                         <strong class="ft-medium text-dark"><?php echo $name?></strong>
                                         <ul>
-                                            <li>Role: <?php echo $image?></li>
+                                            <li>Role: <?php echo $role?></li>
                                         </ul>
                                     </li>
                                     <?php

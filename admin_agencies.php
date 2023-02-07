@@ -113,7 +113,7 @@ $admin_id=$row['admin_id'];
                                         </thead>
                                         <tbody> 
                                             <?php 
-												$sql = "SELECT * FROM agency where `status` = 1";
+												$sql = "SELECT * FROM agency where `verified` = 1";
 												$result = mysqli_query($conn, $sql);
 												if($result){
 													while($row=mysqli_fetch_assoc($result)){
